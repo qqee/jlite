@@ -1,0 +1,108 @@
+<html>
+<head>
+<script src="jlite.min.js"></script>
+<style type="text/css">
+.blue{color:blue;}
+.red{color:red;}
+</style>
+</head>
+
+<body>
+	<div id="testid" class="C1 C2 blue C3 C4-5" DATA="0123456">
+		<i class="ii blue">HTML</i>DIVDIV
+	</div>
+	<h2>H2</h2>
+	<div id="box">
+		<b class="testb blue">B1</b>
+		<b class="testb blue">B2</b>
+		<b class="testb blue">B3</b>
+	</div>
+	<button>BUTTON</button>
+</body>
+
+<script>
+$(function(){
+	var alltestnum=23,n=1;
+	
+	
+	alert((n++)+"/"+alltestnum+"\n"+"$(#testid):\n"+   $("#testid")   );
+	alert((n++)+"/"+alltestnum+"\n"+"$(.testb):\n"+   $(".testb")   );
+	alert((n++)+"/"+alltestnum+"\n"+"$(b):\n"+   $("b")   );
+	
+	
+	alert((n++)+"/"+alltestnum+"\n"+"$(#testid).html():\n"+   $("#testid").html()   );
+	alert((n++)+"/"+alltestnum+"\n"+"$(#testid).text():\n"+   $("#testid").text()   );
+	alert((n++)+"/"+alltestnum+"\n"+"$(#testid).next():\n"+   $("#testid").next()   );
+	
+	
+	alert((n++)+"/"+alltestnum+"\n"+"$(#testid).before():\n"+   $("#testid").before('<a href="#">IM_before</a>')   );
+	alert((n++)+"/"+alltestnum+"\n"+"$(#testid).after():\n"+   $("#testid").after('<a href="#">IM_after</a>')   );
+	
+	
+	alert((n++)+"/"+alltestnum+"\n"+"$(#testid).attr():\n"+   $("#testid").attr("DATA")   );
+	
+	
+	alert((n++)+"/"+alltestnum+"\n"+"$(b).addClass():\n"+   $("b").addClass("red")   );
+	alert((n++)+"/"+alltestnum+"\n"+"$(b).removeClass():\n"+   $("b").removeClass("red")   );
+	alert((n++)+"/"+alltestnum+"\n"+"$(b).toggleClass():\n"+   $("b").toggleClass("red")   );
+	
+	
+	$(".testb").each(function(k,v){
+		alert('$(".testb").each()'+":\n"+k+"===>"+v);
+	})
+	
+	
+	var a=[1,2,3];
+	alert((n++)+"/"+alltestnum+"\n"+"$.len():\n"+   $.len(a)   );
+	var a={a:1,b:2,c:3,d:4,e:5};
+	alert((n++)+"/"+alltestnum+"\n"+"$.len():\n"+   $.len(a)   );
+	
+	
+	alert((n++)+"/"+alltestnum+"\n"+"$.ie:\n"+   $.ie   );
+	alert((n++)+"/"+alltestnum+"\n"+"$.ms():\n"+   $.ms()   );
+	alert((n++)+"/"+alltestnum+"\n"+"$.us():\n"+   $.us()   );
+	alert((n++)+"/"+alltestnum+"\n"+"$.now():\n"+   $.now()   );
+	
+	
+	alert((n++)+"/"+alltestnum+"\n"+"$.isnumber():\n"+   $.isnumber("123.456")   );
+	
+	
+	var a={9999:"中文.a?",x:10,y:15,z:{z1:1,z2:222},arr:[{"a":1,"b":2},{"c":3,"d":4}]};
+	var b=$.json(a)
+	alert((n++)+"/"+alltestnum+"\n"+"$.json():\n"+   b   );
+	
+	var a='{"9999":"\u6d93\ue15f\u6783\u002e\u005ca\u003f","x":10,"y":15,"z":{"z1":1,"z2":222},"arr":{"0":{"a":1,"b":2},"1":{"c":3,"d":4}}}';
+	var b=$.json(a)
+	alert((n++)+"/"+alltestnum+"\n"+"$.json():\n"+   b.z.z2   );
+
+	
+	$.cookie("www.qq.ee",$.now(),{"expires":7,"path":"/","secure":0});
+	$.cookie("key","value",{"expires":7,"path":"/","secure":0});
+	alert((n++)+"/"+alltestnum+"\n"+"$.cookie():\n"+   $.cookie()   );
+	alert((n++)+"/"+alltestnum+"\n"+"$.cookie():\n"+   $.cookie("www.qq.ee")   );
+	
+	
+	/*
+	$.ajax({
+		type:"GET",
+		//url:"http://freeapi.ipip.net/8.8.8.8",
+		url:"test.json",
+		async:1,//异步，默认为1==true
+		dataType:"json",//json或空
+		timeout:5000,//毫秒
+		//data:"a=1&b=2",//仅POST时有效
+		error:function(){
+			alert("Error!");
+		},
+		success:function(s){
+			alert("Ok:\n"+s);
+			$.each(s,function(k,v){
+				alert(k+"===>"+v);
+			});
+		}
+	});
+	*/
+	
+});
+</script>
+</html>
