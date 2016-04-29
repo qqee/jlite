@@ -252,5 +252,14 @@ copyright:
 	if(!jlite.ie){
 		jlite._b(HTMLElement.prototype,1);
 	}
+	//window.onscroll action queue
+	jlite.C=[];
+	window.onscroll=function(){
+		for(var i=0;i<jlite.C.length;i++)jlite.C[i]();
+	}
+	jlite.onscroll=function(f,c){
+		if(c)jlite.C=[];
+		else jlite.C.push(f);
+	}
 	win.$=win.jlite=jlite;
 }(window);
