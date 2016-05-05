@@ -82,14 +82,17 @@ $(function(){
 	alert((n++)+"/"+alltestnum+"\n"+"$.cookie():\n"+   $.cookie("www.qq.ee")   );
 	
 	
-	/*
 	$.ajax({
 		type:"GET",
-		//url:"http://freeapi.ipip.net/8.8.8.8",
-		url:"test.json",
+		url:"/test.json",
 		async:1,//异步，默认为1==true
 		dataType:"json",//json或空
 		timeout:5000,//毫秒
+		headers:{//HTTP额外头部
+			"Content-type":"application/x-www-form-urlencoded",
+			A:"AAA",
+			B:"BBB"
+		},
 		//data:"a=1&b=2",//仅POST时有效
 		error:function(){
 			alert("Error!");
@@ -101,7 +104,7 @@ $(function(){
 			});
 		}
 	});
-	*/
+	
 	
 });
 </script>

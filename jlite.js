@@ -1,6 +1,6 @@
 /*
 copyright:
-[jlite.0.0.1]
+[jlite.0.0.2]
 [http://www.qq.ee]
 [https://github.com/qqee/jlite]
 */
@@ -171,6 +171,9 @@ copyright:
 		if(!c.url)return false;
 		var r=(window.XMLHttpRequest)?(new XMLHttpRequest()):(new ActiveXObject("Microsoft.XMLHTTP"));
 		r.open((c.type||"GET"),c.url,((c.async==undefined)?(true):(c.async?true:false)));
+		jlite.each(c.headers,function(k,v){
+			r.setRequestHeader(k,v);
+		});
 		r.onreadystatechange=function(){
 			if (this.readyState==4 && this.status==200){
 				(typeof(c.success)=="function")&&(c.success((c.dataType=="json")?(jlite.json(this.responseText)):(this.responseText)));

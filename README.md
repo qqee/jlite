@@ -86,11 +86,15 @@ alert($.cookie("www.qq.ee")); //取回对应键的值，不存在时返回空字
 //ajax操作
 $.ajax({
 	type:"GET",
-	url:"http://ip.taobao.com/service/getIpInfo.php?ip=8.8.8.8",
-	url:"http://freeapi.ipip.net/8.8.8.8",
+	url:"/test.json",
+	async:1,//异步，默认为1==true
 	dataType:"json",//json或空
-	async:0,//异步，默认为1==true
-	timeout:5000,//毫秒，忽略则不判定超时
+	timeout:5000,//毫秒
+	headers:{//HTTP额外头部
+		"Content-type":"application/x-www-form-urlencoded",
+		A:"AAA",
+		B:"BBB"
+	},
 	//data:"a=1&b=2",//仅POST时有效
 	error:function(){
 		alert("Error!");
@@ -113,11 +117,19 @@ $.onscroll(function(){...},1)
 //----------------------------------------------------------------
 //其他用法请直接使用原生javascript方法，举例如下:
 
+//value
+$("#MYID").value.length
+
 //事件绑定:
 $("#MYID").onclick=function(){}
 obj.onfocus=function(){}
 obj.onchange=function(){}
+obj.onblur=function(){}
 window.onscroll=function(){}
+document.onkeydown=function(ev){
+	var e=ev||window.event||arguments.callee.caller.arguments[0];
+	console.log("["+e.keyCode+"]");
+};
 
 //修改css/style:
 $("#MYID").style.width="100px";
@@ -141,6 +153,10 @@ document.head.appendChild(u);
 
 //修改网页标题:
 document.title="www.qq.ee";
+
+//timer
+setInterval(function(){...},1000);
+setTimeout(function(){...},1000);
 
 
 ```
