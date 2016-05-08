@@ -114,6 +114,12 @@ $.ajax({
 $.onscroll(function(){...},1)
 
 
+//为单个/多个对象设置 onclick 方法
+$(".MYCLASS").click(function(){
+	alert(this.attr("d"));
+});
+
+
 //----------------------------------------------------------------
 //其他用法请直接使用原生javascript方法，举例如下:
 
