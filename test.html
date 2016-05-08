@@ -13,9 +13,9 @@
 	</div>
 	<h2>H2</h2>
 	<div id="box">
-		<b class="testb blue">B1</b>
-		<b class="testb blue">B2</b>
-		<b class="testb blue">B3</b>
+		<b d="11" class="testb blue">B1</b>
+		<b d="22" class="testb blue">B2</b>
+		<b d="33" class="testb blue">B3</b>
 	</div>
 	<button>BUTTON</button>
 </body>
@@ -24,6 +24,9 @@
 $(function(){
 	var alltestnum=23,n=1;
 	
+	$(".testb").click(function(){
+		alert(this.attr("d"));
+	});
 	
 	alert((n++)+"/"+alltestnum+"\n"+"$(#testid):\n"+   $("#testid")   );
 	alert((n++)+"/"+alltestnum+"\n"+"$(.testb):\n"+   $(".testb")   );

@@ -1,24 +1,25 @@
 /*
 copyright:
-[jlite.0.0.2]
+[jlite.0.0.3]
 [http://www.qq.ee]
 [https://github.com/qqee/jlite]
 */
 +function(win){
 	var jlite=(function(){
+		var d=document;
 		var e=function(v){return e.prototype.f(v)};
 		return e.prototype.f=function(f,o){
 			var t=typeof f;
 			if("function"==t){
-				if(document.addEventListener){
-					document.addEventListener("DOMContentLoaded",function(){
-						document.removeEventListener("DOMContentLoaded",arguments.callee,!1);
+				if(d.addEventListener){
+					d.addEventListener("DOMContentLoaded",function(){
+						d.removeEventListener("DOMContentLoaded",arguments.callee,!1);
 						f()
 					},!1);
-				}else if(document.attachEvent){
-					document.attachEvent("onreadystatechange",function(){
-						if(document.readyState==="complete"){
-							document.detachEvent("onreadystatechange",arguments.callee);
+				}else if(d.attachEvent){
+					d.attachEvent("onreadystatechange",function(){
+						if(d.readyState==="complete"){
+							d.detachEvent("onreadystatechange",arguments.callee);
 							f()
 						}
 					});
@@ -27,7 +28,6 @@ copyright:
 				var _=f.substr(0,1);
 				var z=f.substr(1);
 				var n=z.length;
-				var d=document;
 				if(_=="#"){
 					var o=d.getElementById(z);
 					jlite._b(o);
@@ -125,9 +125,9 @@ copyright:
 	}
 	jlite.get=function(k,v){
 		var r=v;
-		var where=document.location.href.indexOf(k+"=");
+		var where=d.location.href.indexOf(k+"=");
 		if(where>0){
-			r=document.location.href.substr(where+k.length+1);
+			r=d.location.href.substr(where+k.length+1);
 			where=r.indexOf("&");
 			if(where>0)r=r.substr(0,where);
 		}
@@ -154,18 +154,19 @@ copyright:
 		return s;
 	}
 	jlite.cookie=function(k,v,r){
+		var D=document;
 		if(v){
 			var s=(r&&r.expires)?(";expires="+new Date(+new Date()+r.expires*864e5).toGMTString()):("");
 			s+=(r&&r.secure)?(";secure"):("");
 			s+=";path:"+((r&&r.path)?(r.path):("/"));
-			document.cookie=(k+"="+v+s);
+			D.cookie=(k+"="+v+s);
 			return;
 		}
 		if(k){
-			var o=(new RegExp("(^| )"+k+"=([^;]*)(;|$)")).exec(document.cookie);
+			var o=(new RegExp("(^| )"+k+"=([^;]*)(;|$)")).exec(D.cookie);
 			return(o?o[2]:"");
 		}
-		return document.cookie;
+		return D.cookie;
 	}
 	jlite.ajax=function(c){
 		if(!c.url)return false;
@@ -192,6 +193,10 @@ copyright:
 	jlite.text=function(v){
 		if(!v)return this.textContent;
 		this.textContent=v;
+	}
+	jlite.click=function(f){
+		var _=this;
+		(_.length)?(jlite.each(_,function(k,v){v.onclick=f})):(_.onclick=f);
 	}
 	jlite.addClass=function(s){
 		var _=this;
@@ -241,6 +246,7 @@ copyright:
 	}
 	jlite._b=function(o,m){
 		if(m||jlite.ie){
+			o.click=jlite.click;
 			o.addClass=jlite.addClass;
 			o.removeClass=jlite.removeClass;
 			o.toggleClass=jlite.toggleClass;
