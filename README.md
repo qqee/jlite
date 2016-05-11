@@ -148,6 +148,7 @@ document.body.scrollTop=0;
 
 //到网页底部:
 document.body.scrollTop=$("#bot").offsetTop;
+document.body.scrollTop=document.body.scrollHeight;
 
 //修改src属性:
 obj.src="/test.html?t="+$.ms();
