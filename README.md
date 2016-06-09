@@ -12,6 +12,10 @@
 #####如需裁剪功能请编辑[jlite.js]文件
 #####使用MIT License。
 ---------------------------
+###CDN with http&https
+#####//dn-cdncdn.qbox.me/jlite.min.last.js
+#####//dn-cdncdn.qbox.me/jlite.min.0.0.4.js
+---------------------------
 ```javascript
 //onload
 $(function(){alert("ok")});
@@ -36,12 +40,14 @@ $(".MYCLASS").toggleClass("ABC") //支持数组
 $(".MYCLASS").each(function(k,v){...}) //选择器返回数组时内置遍历方法
 
 //遍历
+//传入函数返回1时停止遍历
 $.each($(".MYCLASS"),function(k,v){...}) //通过外部函数遍历
 //$.each可遍历数组和对象
 var a=[1,2,3];
 var a={a:1,b:2,c:3};
 $.each(a,function(k,v){
 	alert(k+"===>"+v);
+	return 1;
 });
 
 //返回数组或对象的长度，返回整数0~n

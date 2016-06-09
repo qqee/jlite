@@ -24,9 +24,11 @@
 $(function(){
 	var alltestnum=23,n=1;
 	
+	
 	$(".testb").click(function(){
 		alert(this.attr("d"));
 	});
+	
 	
 	alert((n++)+"/"+alltestnum+"\n"+"$(#testid):\n"+   $("#testid")   );
 	alert((n++)+"/"+alltestnum+"\n"+"$(.testb):\n"+   $(".testb")   );
@@ -73,6 +75,7 @@ $(function(){
 	var a={9999:"中文.a?",x:10,y:15,z:{z1:1,z2:222},arr:[{"a":1,"b":2},{"c":3,"d":4}]};
 	var b=$.json(a)
 	alert((n++)+"/"+alltestnum+"\n"+"$.json():\n"+   b   );
+	
 	
 	var a='{"9999":"\u6d93\ue15f\u6783\u002e\u005ca\u003f","x":10,"y":15,"z":{"z1":1,"z2":222},"arr":{"0":{"a":1,"b":2},"1":{"c":3,"d":4}}}';
 	var b=$.json(a)

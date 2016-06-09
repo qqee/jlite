@@ -1,6 +1,6 @@
 /*
 copyright:
-[jlite.0.0.3]
+[jlite.0.0.4]
 [http://www.qq.ee]
 [https://github.com/qqee/jlite]
 */
@@ -66,13 +66,18 @@ copyright:
 		}
 	})();
 	jlite.ie=!-[1,];
+	//sub function return 1 to break loop.
 	jlite.each=function(o,f){
 		if("object"!=typeof(o))return;
 		if(o.length){
-			for(var i=0;i<o.length;i++)f(i,o[i]);
+			for(var i=0;i<o.length;i++){
+				if(1==f(i,o[i]))break;
+			}
 			return;
 		}
-		for(var v in o)f(v,o[v]);
+		for(var v in o){
+			if(1==f(v,o[v]))break;
+		}
 	}
 	jlite.isnumber=function(s){
 		if(s)return !isNaN(s);
@@ -196,7 +201,14 @@ copyright:
 	}
 	jlite.click=function(f){
 		var _=this;
-		(_.length)?(jlite.each(_,function(k,v){v.onclick=f})):(_.onclick=f);
+		if(!f){
+			_.click0();
+			return;
+		}
+		(_.length)?(jlite.each(_,function(k,v){
+			v.onclick=f;
+			jlite._b(v);//add prototype
+		})):(_.onclick=f);
 	}
 	jlite.addClass=function(s){
 		var _=this;
@@ -246,6 +258,7 @@ copyright:
 	}
 	jlite._b=function(o,m){
 		if(m||jlite.ie){
+			o.click0=o.click;
 			o.click=jlite.click;
 			o.addClass=jlite.addClass;
 			o.removeClass=jlite.removeClass;
