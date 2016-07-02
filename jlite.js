@@ -1,25 +1,25 @@
 /*
 copyright:
-[jlite.0.0.4]
+[jlite.0.0.5]
 [http://www.qq.ee]
 [https://github.com/qqee/jlite]
 */
 +function(win){
+	var D=document;
 	var jlite=(function(){
-		var d=document;
 		var e=function(v){return e.prototype.f(v)};
 		return e.prototype.f=function(f,o){
 			var t=typeof f;
 			if("function"==t){
-				if(d.addEventListener){
-					d.addEventListener("DOMContentLoaded",function(){
-						d.removeEventListener("DOMContentLoaded",arguments.callee,!1);
+				if(D.addEventListener){
+					D.addEventListener("DOMContentLoaded",function(){
+						D.removeEventListener("DOMContentLoaded",arguments.callee,!1);
 						f()
 					},!1);
-				}else if(d.attachEvent){
-					d.attachEvent("onreadystatechange",function(){
-						if(d.readyState==="complete"){
-							d.detachEvent("onreadystatechange",arguments.callee);
+				}else if(D.attachEvent){
+					D.attachEvent("onreadystatechange",function(){
+						if(D.readyState==="complete"){
+							D.detachEvent("onreadystatechange",arguments.callee);
 							f()
 						}
 					});
@@ -29,11 +29,11 @@ copyright:
 				var z=f.substr(1);
 				var n=z.length;
 				if(_=="#"){
-					var o=d.getElementById(z);
+					var o=D.getElementById(z);
 					jlite._b(o);
 					return o;
 				}else{
-					if(!o)o=d.body;
+					if(!o)o=D.body;
 					var all=o.getElementsByTagName((_==".")?("*"):(f)),arr=[];
 					for(var i=0;i<all.length;i++){
 						if(_!="."){
@@ -66,6 +66,7 @@ copyright:
 		}
 	})();
 	jlite.ie=!-[1,];
+	jlite.https='https:'==D.location.protocol;
 	//sub function return 1 to break loop.
 	jlite.each=function(o,f){
 		if("object"!=typeof(o))return;
@@ -130,9 +131,9 @@ copyright:
 	}
 	jlite.get=function(k,v){
 		var r=v;
-		var where=d.location.href.indexOf(k+"=");
+		var where=D.location.href.indexOf(k+"=");
 		if(where>0){
-			r=d.location.href.substr(where+k.length+1);
+			r=D.location.href.substr(where+k.length+1);
 			where=r.indexOf("&");
 			if(where>0)r=r.substr(0,where);
 		}
@@ -158,18 +159,39 @@ copyright:
 		s+=(date.getSeconds()<10?('0'+date.getSeconds()):date.getSeconds());
 		return s;
 	}
+	//$.cookie() //get all cookies
+	//$.cookie("k") //get "k" cookie value
+	//$.cookie("www.qq.ee",$.now()); //set cookie use default config:[7 days, /]
+	//$.cookie("www.qq.ee",$.now(),{"expires":300,"path":"/","secure":1}); //set cookies
+	//$.cookie("") //delete all cookie
+	//$.cookie("k","") //delete "k" cookie
 	jlite.cookie=function(k,v,r){
-		var D=document;
-		if(v){
-			var s=(r&&r.expires)?(";expires="+new Date(+new Date()+r.expires*864e5).toGMTString()):("");
-			s+=(r&&r.secure)?(";secure"):("");
-			s+=";path:"+((r&&r.path)?(r.path):("/"));
-			D.cookie=(k+"="+v+s);
+		var setcookie=function(key,val,day,path,secure){
+			var str=";expires="+new Date(+new Date()+day*864e5).toGMTString();
+			if(secure=="undefined"){
+				str+=jlite.https?";secure":"";
+			}else{
+				str+=secure?";secure":"";
+			}
+			str+=path?(";path:"+path):"";
+			D.cookie=key+"="+val+str;
+		}
+		if(k==""){
+			var y=D.cookie.match(/[^ =;]+(?=\=)/g);
+			if(y)for(var i=y.length;i--;)setcookie(y[i],"",-1)
 			return;
 		}
 		if(k){
-			var o=(new RegExp("(^| )"+k+"=([^;]*)(;|$)")).exec(D.cookie);
-			return(o?o[2]:"");
+			if(v==""){
+				setcookie(k,"",-1);
+				return;
+			}
+			if(v){
+				setcookie(k,v,(r&&r.expires?r.expires:7),(r&&r.path?r.path:0),(r&&r.secure?r.secure:0));
+			}else{
+				var o=(new RegExp("(^| )"+k+"=([^;]*)(;|$)")).exec(D.cookie);
+				return(o?o[2]:"");
+			}
 		}
 		return D.cookie;
 	}

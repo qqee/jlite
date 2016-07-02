@@ -14,7 +14,7 @@
 ---------------------------
 ###CDN with http&https
 #####//dn-cdncdn.qbox.me/jlite.min.last.js
-#####//dn-cdncdn.qbox.me/jlite.min.0.0.4.js
+#####//dn-cdncdn.qbox.me/jlite.min.0.0.5.js
 ---------------------------
 ```javascript
 //onload
@@ -56,6 +56,9 @@ $.len(a)
 //浏览器是否为ie，布尔值，非函数
 $.ie
 
+//网站是否采用https，布尔值，非函数
+$.https
+
 //返回10位长度时间戳(毫秒)
 $.ms()
 
@@ -82,11 +85,14 @@ alert(b.z.z2)
 
 
 //cookie操作
-//写入cookie，[键，值，参数(若忽略则过期时间为会话结束,path为/,secure为false)]
+//写入cookie，[键，值，参数(若忽略则过期时间为会话结束,path为/,secure)]
 //expires的单位是天
-$.cookie("www.qq.ee",$.now(),{"expires":7,"path":"/","secure":0});
-alert($.cookie()); //取回全部cookie如[a=1;b=2;c=3]
-alert($.cookie("www.qq.ee")); //取回对应键的值，不存在时返回空字符""
+$.cookie() ////取回全部cookie如[a=1;b=2;c=3]
+$.cookie("k") ////取回对应键的值，不存在时返回空字符""
+$.cookie("www.qq.ee",$.now()); //set cookie use default config:[7 days, /]
+$.cookie("www.qq.ee",$.now(),{"expires":300,"path":"/","secure":1}); //set cookies
+$.cookie("") //delete all cookie
+$.cookie("k","") //delete "k" cookie
 
 
 //ajax操作

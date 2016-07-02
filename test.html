@@ -17,12 +17,21 @@
 		<b d="22" class="testb blue">B2</b>
 		<b d="33" class="testb blue">B3</b>
 	</div>
-	<button>BUTTON</button>
+	<button d="AA">BUTTON.A</button>
+	<button d="BB">BUTTON.B</button>
 </body>
 
 <script>
 $(function(){
-	var alltestnum=23,n=1;
+	$("button").click(function(){
+		alert(this.attr("d"));
+	})
+	
+	var ishttps=$.https?"Is https.":"Is http."
+	alert(ishttps);
+	
+	
+	var alltestnum=25,n=1;
 	
 	
 	$(".testb").click(function(){
@@ -82,8 +91,11 @@ $(function(){
 	alert((n++)+"/"+alltestnum+"\n"+"$.json():\n"+   b.z.z2   );
 
 	
-	$.cookie("www.qq.ee",$.now(),{"expires":7,"path":"/","secure":0});
-	$.cookie("key","value",{"expires":7,"path":"/","secure":0});
+	$.cookie("www.qq.ee",$.now());
+	$.cookie("key","value",{"expires":30,"path":"/","secure":1});
+	alert((n++)+"/"+alltestnum+"\n"+"$.cookie():\n"+   $.cookie()   );
+	alert((n++)+"/"+alltestnum+"\n"+"$.cookie():\n"+   $.cookie("www.qq.ee")   );
+	$.cookie("");
 	alert((n++)+"/"+alltestnum+"\n"+"$.cookie():\n"+   $.cookie()   );
 	alert((n++)+"/"+alltestnum+"\n"+"$.cookie():\n"+   $.cookie("www.qq.ee")   );
 	
@@ -91,15 +103,15 @@ $(function(){
 	$.ajax({
 		type:"GET",
 		url:"/test.json",
-		async:1,//异步，默认为1==true
-		dataType:"json",//json或空
-		timeout:5000,//毫秒
-		headers:{//HTTP额外头部
+		async:1,//1==true
+		dataType:"json",//json or null
+		timeout:5000,//ms
+		headers:{//HTTP heade
 			"Content-type":"application/x-www-form-urlencoded",
 			A:"AAA",
 			B:"BBB"
 		},
-		//data:"a=1&b=2",//仅POST时有效
+		//data:"a=1&b=2",//POST
 		error:function(){
 			alert("Error!");
 		},
