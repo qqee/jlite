@@ -25,6 +25,12 @@ $(function(){alert("ok")});
 $("#MYID") //返回单个对象
 $(".MYCLASS") //返回数组
 $("div") //返回数组
+//可选参数2指定父亲元素，用于选择子孙元素。留空时父亲为 document.body
+$(".item",$("#IDx"))
+//例：所有 .onetab 元素被单击时，弹出触发元素中第三个 .lit 的内容
+$(".onetab").click(function(){
+	alert($(".lit",this)[2].html());
+});
 
 //选择器的方法、Element对象的方法
 var a=$("#MYID");alert(a.html());
