@@ -6,44 +6,71 @@
 ---------------------------
 #####如果你使用jquery只用到很少几个功能如选择器、取值赋值、遍历等，可以试试[JLite]，兼容jquery语法却只有4KB(gzip压缩后1.5KB)，你不需要引用额外js文件，复制原生代码到自己的js文件中即可替换jquery。
 ---------------------------
-#####JLite是原生javascript编写的超薄封装。
-#####支持 JSON、选择器、AJAX、COOKIE。
+#####JLite是原生javascript编写的超薄封装
+#####支持 JSON、选择器、AJAX、COOKIE
+#####支持 onclick、window.onscroll 事件队列
 #####兼容 IE6+
-#####如需裁剪功能请编辑[jlite.js]文件
-#####使用MIT License。
 ---------------------------
 ###CDN with http&https
 #####//dn-cdncdn.qbox.me/jlite.min.last.js
-#####//dn-cdncdn.qbox.me/jlite.min.0.0.5.js
+#####//dn-cdncdn.qbox.me/jlite.min.0.0.6.js
 ---------------------------
 ```javascript
 //onload
 $(function(){alert("ok")});
 
+
 //选择器，返回 Element 或 Element数组
-//仅支持单一名称，不支持多条件/子孙选择
+//仅支持无空格字符串，不支持多条件/子孙选择如: $("DIV #MYID") 或 $("#MYID.CLAST")
 $("#MYID") //返回单个对象
 $(".MYCLASS") //返回数组
 $("div") //返回数组
 //可选参数2指定父亲元素，用于选择子孙元素。留空时父亲为 document.body
-$(".item",$("#IDx"))
+$( ".item", $("#IDx") )
 //例：所有 .onetab 元素被单击时，弹出触发元素中第三个 .lit 的内容
 $(".onetab").click(function(){
-	alert($(".lit",this)[2].html());
+	alert( $(".lit",this)[2].html() );
 });
+
 
 //选择器的方法、Element对象的方法
 var a=$("#MYID");alert(a.html());
-$("#MYID").html() //不支持数组
-$("#MYID").text() //不支持数组
-$("#MYID").next() //邻居元素，不支持数组
-$("#MYID").before("<a href="#">IM_NEW_LINK</a>") //加入内容，不支持数组
-$("#MYID").after("<a href="#">IM_NEW_LINK</a>") //加入内容，不支持数组
-$("#MYID").attr("DATA","value") //value参数忽略时为取值，否则为赋值，不支持数组
-$(".MYCLASS").addClass("ABC") //支持数组
-$(".MYCLASS").removeClass("ABC") //支持数组
-$(".MYCLASS").toggleClass("ABC") //支持数组
-$(".MYCLASS").each(function(k,v){...}) //选择器返回数组时内置遍历方法
+$(".CLAS").html("V") //v参数忽略时为取值，否则为赋值
+$(".CLAS").text("V") //v参数忽略时为取值，否则为赋值
+$(".CLAS").attr("DATA","v") //v参数忽略时为取值，否则为赋值
+$(".CLAS").val("v") //v参数忽略时为取value值，否则为赋值
+$(".CLAS").next() //取弟元素
+$(".CLAS").prev() //取兄元素
+$(".CLAS").parent() //取父元素
+$(".CLAS").remove()
+$(".CLAS").empty()
+$(".CLAS").before('<a href="#">QQEE</a>') //头部添加兄弟对象
+$(".CLAS").after('<a href="#">QQEE</a>') //尾部添加兄弟对象
+$(".CLAS").append('<a href="#">QQEE</a>') //尾部添加子对象
+$(".CLAS").prepend('<a href="#">QQEE</a>') //头部添加子对象
+$(".CLAS").addClass("ABC")
+$(".CLAS").removeClass("ABC")
+$(".CLAS").toggleClass("ABC")
+$(".CLAS").each(function(k,v){...}) //选择器返回数组时内置遍历方法
+
+
+//css
+$("#MYID").css("text-align") //取值
+$(".CLAS").css("text-align","center") //赋值
+$(".CLAS").css({"text-align":"center","color":"red"}) //连续赋值
+
+
+//事件队列支持，允许绑定对个函数
+//window.onscroll
+//参数2可忽略，当参数2非空时清空队列中其他函数
+$.onscroll(function(){...},1)
+
+//为单个/多个DOM对象设置 onclick 方法
+//参数2可忽略，当参数2非空时清空队列中其他函数
+$(".MYCLASS").click(function(){
+	alert(this.attr("d"));
+},1);
+
 
 //遍历
 //传入函数返回1时停止遍历
@@ -55,6 +82,7 @@ $.each(a,function(k,v){
 	alert(k+"===>"+v);
 	return 1;
 });
+
 
 //返回数组或对象的长度，返回整数0~n
 $.len(a)
@@ -126,25 +154,13 @@ $.ajax({
 });
 
 
-//window.onscroll action queue
-//添加回调函数至 window.onscroll 事件中
-//参数2可忽略，当参数2非空/0时清空队列中其他函数
-$.onscroll(function(){...},1)
-
-
-//为单个/多个对象设置 onclick 方法
-$(".MYCLASS").click(function(){
-	alert(this.attr("d"));
-});
-
-
 //----------------------------------------------------------------
 //其他用法请直接使用原生javascript方法，举例如下:
 
-//value
+//原生取value
 $("#MYID").value.length
 
-//事件绑定:
+//原生事件绑定:
 $("#MYID").onclick=function(){}
 obj.onfocus=function(){}
 obj.onchange=function(){}
@@ -155,7 +171,7 @@ document.onkeydown=function(ev){
 	console.log("["+e.keyCode+"]");
 };
 
-//修改css/style:
+//原生修改css/style:
 $("#MYID").style.width="100px";
 obj.style.display="inline-block";
 obj.style.position='absolute';
@@ -168,10 +184,10 @@ document.body.scrollTop=0;
 document.body.scrollTop=$("#bot").offsetTop;
 document.body.scrollTop=document.body.scrollHeight;
 
-//修改src属性:
+//原生修改src属性:
 obj.src="/test.html?t="+$.ms();
 
-//插入对象/代码:
+//原生插入对象/代码:
 var u=document.createElement("style");
 u.innerHTML="div{color:red}";
 document.head.appendChild(u);
