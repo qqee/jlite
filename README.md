@@ -60,7 +60,7 @@ $(".CLAS").css("text-align","center") //赋值
 $(".CLAS").css({"text-align":"center","color":"red"}) //连续赋值
 
 
-//事件队列支持，允许绑定对个函数
+//事件队列支持，允许绑定多个函数
 //window.onscroll
 //参数2可忽略，当参数2非空时清空队列中其他函数
 $.onscroll(function(){...},1)
@@ -73,14 +73,14 @@ $(".MYCLASS").click(function(){
 
 
 //遍历
-//传入函数返回1时停止遍历
+//遍历函数返回1时停止遍历
 $.each($(".MYCLASS"),function(k,v){...}) //通过外部函数遍历
 //$.each可遍历数组和对象
 var a=[1,2,3];
 var a={a:1,b:2,c:3};
 $.each(a,function(k,v){
 	alert(k+"===>"+v);
-	return 1;
+	return 1; //此处返回1时停止遍历
 });
 
 
