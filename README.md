@@ -17,7 +17,7 @@
 ---------------------------
 ```javascript
 //onload
-$(function(){alert("ok")});
+$( function(){alert("ok")} );
 
 
 //选择器，返回 Element 或 Element数组
@@ -27,7 +27,7 @@ $(".MYCLASS") //返回数组
 $("div") //返回数组
 //可选参数2指定父亲元素，用于选择子孙元素。留空时父亲为 document.body
 $( ".item", $("#IDx") )
-//例：所有 .onetab 元素被单击时，弹出触发元素中第三个 .lit 的内容
+//例：所有 .onetab 元素被单击时，弹出触发元素中第3个 .lit 的内容
 $(".onetab").click(function(){
 	alert( $(".lit",this)[2].html() );
 });
@@ -51,25 +51,38 @@ $(".CLAS").prepend('<a href="#">QQEE</a>') //头部添加子对象
 $(".CLAS").addClass("ABC")
 $(".CLAS").removeClass("ABC")
 $(".CLAS").toggleClass("ABC")
-$(".CLAS").each(function(k,v){...}) //选择器返回数组时内置遍历方法
+$(".CLAS").each( function(k,v){...} ) //选择器返回数组时内置遍历方法
 
 
 //css
 $("#MYID").css("text-align") //取值
 $(".CLAS").css("text-align","center") //赋值
-$(".CLAS").css({"text-align":"center","color":"red"}) //连续赋值
+$(".CLAS").css( {"text-align":"center", "font-size":"14px", "background-color":"#d0d0d0"} ) //连续赋值
 
 
-//事件队列支持，允许绑定多个函数
+
+
+//事件队列支持，可以为单个/多个元素绑定函数，多次绑定会在触发时按绑定顺序执行
+
 //window.onscroll
 //参数2可忽略，当参数2非空时清空队列中其他函数
-$.onscroll(function(){...},1)
+$.onscroll(function(){
+	console.log(document.body.scrollTop); //滚动时显示顶部坐标
+},1); //参数2为1，将清除旧绑定，此时队列中只有当前函数
+$.onscroll(function(){
+	console.log(new Date().getTime()); //滚动时显示时间
+}); //参数2被忽略，此时队列中有2个函数，窗口滚动时将依次执行上述2个函数
 
-//为单个/多个DOM对象设置 onclick 方法
+//onclick
 //参数2可忽略，当参数2非空时清空队列中其他函数
+$(".MYCLASS").click(function(){ //为全部 .MYCLASS 元素绑定 click 事件
+	alert(this.html());
+},1); //参数2为1，将清除旧绑定，此时队列中只有当前函数
 $(".MYCLASS").click(function(){
-	alert(this.attr("d"));
-},1);
+	console.log(this.text());
+}); //参数2被忽略，此时队列中有2个函数，click触发时将依次执行上述2个函数
+
+
 
 
 //遍历
